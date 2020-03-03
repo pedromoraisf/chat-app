@@ -1,0 +1,33 @@
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+.shadow-primary {
+    box-shadow: 0 4px 14px 0 rgba(0, 105, 217, .39);
+}
+
+.shadow-info {
+    box-shadow: 0 4px 14px 0 rgb(23, 162, 184, .39);
+}
+
+.shadow-success {
+    box-shadow: 0 4px 14px 0 rgba(40, 167, 69, .39);
+}
+
+.shadow-warning {
+    box-shadow: 0 4px 14px 0 rgba(242, 130, 37, .39);
+}
+
+.shadow-danger {
+    box-shadow: 0 4px 14px 0 rgba(220, 53, 69, .39);
+}
+
+.shadow-ghost {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .06) !important;
+}
+
+.shadow-move {
+    transition: .2s all ease-in-out;
+    @extend .shadow-sm;
+    &:hover {
+        @extend .shadow-ghost;
+    }
+}
