@@ -1,20 +1,18 @@
 <template>
-  <div class="d-flex flex-column justify-content-between h-100">
-    <b-container class="h-100 d-flex flex-column chat">
-      <!-- messages -->
-      <div v-for="mes in messagesTreat" :key="mes.id" class="w-100 d-flex mb-3" :class="mes.username !== username ? '' : 'flex-row-reverse'">
-        <div class="rounded shadow-ghost p-4 chat-box" :class="mes.username !== username ? 'bg-light' : 'text-right bg-white'">
-          <strong class="mr-2">{{ mes.username }}</strong>
-          <span>{{ mes.message }}</span>
-        </div>
+  <div class="h-100">
+    <!-- messages -->
+    <b-container class="d-flex flex-column align-items-center chat">
+      <div v-for="mes in messagesTreat" :key="mes.id" class="rounded shadow-ghost p-4 chat-box mb-5 position-relative" :class="mes.username !== username ? 'bg-light n-right' : 'text-right bg-white n-left'">
+        <strong class="mr-2">{{ mes.username }}</strong>
+        <span>{{ mes.message }}</span>
       </div>
     </b-container>
 
     <!-- sender bar -->
-    <div class="w-100 bg-white" style="height: 100px;">
-      <b-container class="py-4 px-5">
-        <form class="row">
-          <b-col cols="8" class="p-0">
+    <div class="w-100 bg-white sender-bar d-flex align-items-center">
+      <b-container class="px-5">
+        <b-form-row>
+          <b-col cols="10" class="p-0">
             <input
               placeholder="Digite sua mensagem..."
               class="w-100 h-100 border-light form-control"
@@ -22,10 +20,10 @@
             />
           </b-col>
 
-          <b-col cols="4" class="d-flex p-0 flex-row-reverse">
+          <b-col cols="2" class="d-flex p-0 flex-row-reverse">
             <b-button
               type="submit"
-              class="rounded-0 btn-lg font-weight-bold"
+              class="btn-lg font-weight-bold"
               :class="`shadow-${colorTheme}`"
               :disabled="username.length ? false : true"
               v-html="'Enviar'"
@@ -33,7 +31,7 @@
               @click.prevent="sendMessage()"
             />
           </b-col>
-        </form>
+        </b-form-row>
       </b-container>
     </div>
   </div>
@@ -79,3 +77,62 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  $chat-height: 80%;
+
+  .chat {
+    overflow-y: scroll; 
+    -webkit-overflow-scrolling: touch;
+    height: #{$chat-height};
+    padding-top: 5rem;
+  }
+
+  .sender-bar {
+    height: calc(100% - #{$chat-height});
+  }
+
+  .chat-box {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 1rem;
+  }
+
+  $negative-positions: 15rem;
+  $negative-lg-positions: 10rem;
+  $negative-md-positions: 3rem;
+
+  .n-left {
+    left: $negative-positions;
+    @media screen and (max-width: 1250px) {
+      left: $negative-lg-positions;
+    }
+    @media screen and (max-width: 1100px) {
+      left: $negative-md-positions;
+    }
+    @media screen and (max-width: 720px) {
+      left: 0;
+      right: 1rem;
+    }
+    @media screen and (max-width: 400px) {
+      right: 0;
+    }
+  }
+
+  .n-right {
+    right: $negative-positions;
+    @media screen and (max-width: 1250px) {
+      right: $negative-lg-positions;
+    }
+    @media screen and (max-width: 1100px) {
+      right: $negative-md-positions;
+    }
+    @media screen and (max-width: 720px) {
+      right: 0;
+      left: 1rem;
+    }
+    @media screen and (max-width: 400px) {
+      left: 0;
+    }
+  }
+</style>

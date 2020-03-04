@@ -1,48 +1,39 @@
 <template>
-  <div>
+  <div class="h-100">
     <!-- "logo" -->
-    <div class="w-100 p-4" :class="`bg-${colorTheme}`">
+    <div class="w-100 p-4 logo d-flex align-items-center" :class="`bg-${colorTheme}`">
       <h1 class="display-4 text-uppercase text-white font-weight-bolder" v-html="'chat do pedrão'" />
     </div>
 
     <!-- set name -->
-    <div class="w-100 bg-white px-5 py-4">
-      <div>
-        <form class="row">
-          <b-col cols="8" class="p-0">
-            <input
-              id="username"
-              class="rounded-0 form-control border-light"
-              placeholder="Insira seu nome de exibição"
-              v-model="username"
-            />
-          </b-col>
+    <div class="w-100 set-name bg-white px-5 d-flex align-items-center">
+      <form class="row">
+        <b-col cols="8" class="p-0">
+          <input
+            id="username"
+            class="form-control border-light"
+            placeholder="Insira seu nome de exibição"
+            v-model="username"
+          />
+        </b-col>
 
-          <b-col cols="4" class="p-0">
-            <b-button
-              type="submit"
-              class="rounded-0 btn-block font-weight-bold"
-              :class="usernameStore.length ? 'shadow' : `shadow-${colorTheme}`"
-              v-html="usernameStore.length ? 'Mudar' : 'Ok'"
-              :variant="usernameStore.length ? 'light' : colorTheme"
-              @click.prevent="changeUsername()"
-            />
-          </b-col>
-        </form>
-      </div>
+        <b-col cols="4" class="p-0 text-right">
+          <b-button
+            type="submit"
+            class="font-weight-bold"
+            v-html="usernameStore.length ? 'Mudar' : 'Ok'"
+            :variant="usernameStore.length ? 'light' : colorTheme"
+            @click.prevent="changeUsername()"
+          />
+        </b-col>
+      </form>
     </div>
 
     <!-- users list -->
-    <!-- <div class="w-100 bg-dark p-5" :class="`text-${colorTheme}`">
+    <div class="w-100 bg-dark p-5 users-list" :class="`text-${colorTheme}`">
       <h4 v-html="'Usuários conectados'" class="mb-4" />
-
-      <div>
-        <div v-for="u in usersList" :key="u.id" class="d-flex align-items-center mb-3">
-          <div class="bg-success rounded-circle icon-on mr-2 shadow-success" />
-          <p class="text-light mb-0" v-html="`${u}`" />
-        </div>
-      </div>
-    </div> -->
+      <p class="text-secondary" v-html="'Serviço indisponível'" />
+    </div>
   </div>
 </template>
 
@@ -84,3 +75,29 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>  
+  $logo-height: 30%;
+  $set-name-height: 15%;
+  $dimensions-icon-on: 12px;
+
+  .icon-on {
+    width: #{$dimensions-icon-on};
+    height: #{$dimensions-icon-on};
+  }
+
+  .logo {
+    min-height: 200px;
+    height: #{$logo-height};
+  }
+
+  .set-name {
+    min-height: 100px;
+    height: #{$set-name-height};
+  }
+
+  .users-list {
+    min-height: 300px;
+    height: calc(100% - (#{$logo-height} + #{$set-name-height}));
+  }
+</style>

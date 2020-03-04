@@ -1,5 +1,5 @@
 <template>
-  <div id="index" class="bg-dark w-100 px-2 pt-2 pb-4">
+  <div id="index" class="bg-dark">
     
     <orchestrator />
 
@@ -18,6 +18,6 @@ export default {
 
 <style lang="scss">
   #index {
-    min-height: 100vh;
+    height: 100vh;
   }
 </style>
