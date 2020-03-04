@@ -11,7 +11,7 @@
     <!-- sender bar -->
     <div class="w-100 bg-white sender-bar d-flex align-items-center">
       <b-container class="px-5">
-        <b-form-row>
+        <form class="row">
           <b-col cols="10" class="p-0">
             <input
               placeholder="Digite sua mensagem..."
@@ -31,7 +31,7 @@
               @click.prevent="sendMessage()"
             />
           </b-col>
-        </b-form-row>
+        </form>
       </b-container>
     </div>
   </div>
