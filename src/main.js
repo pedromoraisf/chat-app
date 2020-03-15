@@ -2,10 +2,6 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueSocketIO from 'vue-socket.io';
 import { BootstrapVue } from 'bootstrap-vue';
-
-import dotenv from 'dotenv';
-dotenv.config();
-
 import router from "./router";
 import store from "./store";
 
@@ -14,7 +10,7 @@ import "./scss/style.scss";
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: process.env.VUE_APP_HOST || 'https://api-chatdopedrao.herokuapp.com',
+    connection: process.env.VUE_APP_HOST || 'http://localhost:9000',
     secure: true
 }));
 
