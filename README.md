@@ -1,24 +1,20 @@
-# app
+# Chat do Pedrão // Client
+> Client do meu chat 😆 - Apenas pra estudos
 
-## Project setup
-```
-yarn install
-```
+![](public/sample.png)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Instalação e Uso
 
-### Compiles and minifies for production
-```
-yarn build
+Depois de ter o Yarn e o Vue CLI instalado:
+
+```sh
+yarn
 ```
 
-### Lints and fixes files
-```
-yarn lint
+```sh
+yarn dev
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Online na Heroku
+
+>> 🥺 Converse conosco (<https://chatdopedrao.herokuapp.com>)
