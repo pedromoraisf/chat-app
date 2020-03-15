@@ -17,4 +17,4 @@ yarn dev
 
 ## Online na Heroku
 
->> 🥺 Converse conosco (<https://chatdopedrao.herokuapp.com>)
+> 🥺 Converse conosco (<https://chatdopedrao.herokuapp.com>)
