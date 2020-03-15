@@ -30,74 +30,89 @@
     </div>
 
     <!-- users list -->
-    <div class="w-100 bg-dark p-5 users-list" :class="`text-${colorTheme}`">
+    <div class="w-100 bg-dark p-4 users-list" :class="`text-${colorTheme}`">
       <h4 v-html="'Usuários conectados'" class="mb-4" />
-      <p class="text-secondary" v-html="'Serviço indisponível'" />
+      <div v-if="usersList.length" class="w-100">
+        <p
+          v-for="users in usersList"
+          :key="users.id"
+          class="text-secondary mb-0 d-flex align-items-center mx-2"
+          v-html="`<div class='icon-status bg-success mr-2 rounded-circle shadow'></div>${users.username}`"
+        />
+      </div>
+      <div v-else-if="!usersList.length">
+        <p
+          v-show="!usersList.length"
+          class="text-secondary mb-0 d-flex align-items-center"
+          v-html="'Nenhum usuário conectado'"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
   data: () => ({
-    username: localStorage.getItem('username') !== null ? localStorage.getItem('username') : ''
+    username:
+      localStorage.getItem("username") !== null
+        ? localStorage.getItem("username")
+        : ""
   }),
   props: {
     colorTheme: {
       type: String
-    }, 
+    },
     usersList: {
       type: Array
     }
-  }, 
+  },
   methods: {
-    observerUsername () {
-      if (localStorage.getItem('username') !== null)
-        this.$store.dispatch('commitUsername', this.username)
+    observerUsername() {
+      if (localStorage.getItem("username") !== null)
+        this.$store.dispatch("commitUsername", this.username);
     },
-    changeUsername () { 
-      localStorage.setItem('username', this.username)
-      this.$store.dispatch('commitUsername', this.username)
+    changeUsername() {
+      localStorage.setItem("username", this.username);
+      this.commitUsername(this.username);
     },
-    ...mapActions([
-      'commitUsername'
-    ])
-  }, 
+    ...mapActions(["commitUsername"])
+  },
   computed: {
     ...mapState({
-      usernameStore: 'username'
+      usernameStore: "username"
     })
-  }, 
-  mounted () {
-    this.observerUsername()
+  },
+  mounted() {
+    this.observerUsername();
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>  
-  $logo-height: 30%;
-  $set-name-height: 15%;
-  $dimensions-icon-on: 12px;
+<style lang="scss">
+$logo-height: 30%;
+$set-name-height: 15%;
+$dimensions-icon-on: 12px;
 
-  .icon-on {
-    width: #{$dimensions-icon-on};
-    height: #{$dimensions-icon-on};
-  }
+.icon-status {
+  width: #{$dimensions-icon-on};
+  height: #{$dimensions-icon-on};
+}
 
-  .logo {
-    min-height: 200px;
-    height: #{$logo-height};
-  }
+.logo {
+  min-height: 200px;
+  height: #{$logo-height};
+}
 
-  .set-name {
-    min-height: 100px;
-    height: #{$set-name-height};
-  }
+.set-name {
+  min-height: 100px;
+  height: #{$set-name-height};
+}
 
-  .users-list {
-    min-height: 300px;
-    height: calc(100% - (#{$logo-height} + #{$set-name-height}));
-  }
+.users-list {
+  min-height: 300px;
+  height: calc(100% - (#{$logo-height} + #{$set-name-height}));
+}
 </style>

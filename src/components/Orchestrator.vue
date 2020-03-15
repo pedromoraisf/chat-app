@@ -27,10 +27,13 @@ export default {
   },
   data: () => ({
     messages: [],
-    colorTheme: ["primary", "success", "info", "warning", "danger"],
-    users: ["Pedro", "João", "Thiago", "Isabela", "José"]
+    users: [],
+    colorTheme: ["primary", "success", "info", "warning", "danger"]
   }),
   sockets: {
+    receiveUsersList(data) {
+      this.setUsers(data);
+    },
     receiveData(data) {
       this.renderMessage(data);
     }
@@ -38,10 +41,18 @@ export default {
   methods: {
     renderMessage(messageObject) {
       this.messages = messageObject;
+    },
+    setUsers(users) {
+      this.users = users;
+    },
+    emitUserInfo(username) {
+      this.$socket.emit("sendUserInfo", username);
     }
   },
   created() {
     this.colorTheme = _.shuffle(this.colorTheme);
+    if (localStorage.getItem("username") !== null)
+      this.emitUserInfo(localStorage.getItem("username"));
   }
 };
 </script>
