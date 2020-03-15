@@ -109,6 +109,7 @@ $chat-height: 80%;
   max-width: 400px;
   width: 100%;
   margin: 0 1rem;
+  word-wrap: break-word;
 }
 
 $negative-positions: 15rem;
