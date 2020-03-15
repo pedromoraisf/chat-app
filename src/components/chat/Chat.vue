@@ -2,9 +2,14 @@
   <div class="h-100">
     <!-- messages -->
     <b-container class="d-flex flex-column align-items-center chat">
-      <div v-for="mes in messagesTreat" :key="mes.id" class="rounded shadow-ghost p-4 chat-box mb-5 position-relative" :class="mes.username !== username ? 'bg-light n-right' : 'text-right bg-white n-left'">
+      <div
+        v-for="mes in messagesTreat"
+        :key="mes.id"
+        class="rounded shadow-ghost p-4 chat-box mb-5 position-relative"
+        :class="mes.username !== username ? 'bg-light n-right' : 'text-right bg-white n-left'"
+      >
         <strong class="mr-2">{{ mes.username }}</strong>
-        <span>{{ mes.message }}</span>
+        <span v-html="mes.message"/>
       </div>
     </b-container>
 
@@ -38,11 +43,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   data: () => ({
-    message: ''
+    message: ""
   }),
   props: {
     colorTheme: {
@@ -51,88 +56,96 @@ export default {
     messages: {
       type: Array
     }
-  }, 
+  },
   methods: {
-    sendMessage () {
-      if (this.username.length && this.message.length) {
-        let messageObject = {
-          username: this.username, 
-          message: this.message
-        }
+    observerLink: message => {
+      let msgTest = message.split(' ');
+      let msgTreat = [];
 
-        this.$socket.emit('sendMessage', messageObject)
-
-        this.message = ''
+      for (const el of msgTest) {
+        msgTreat.push(/http:/g.test(el) || /https:/g.test(el) || /www/g.test(el) ? `<a href="${el}" target="_blank">${el}</a>` : el)
       }
 
-    }
-  }, 
-  computed: {
-    messagesTreat () {
-      return this.messages.slice().reverse()
+      return msgTreat.join(' ')
     },
-    ...mapState([
-      'username'
-    ])
+    sendMessage() {
+      if (this.username.length && this.message.length) {
+        const message = this.observerLink(this.message);
+        const messageObject = {
+          username: this.username,
+          message
+        };
+
+        this.$socket.emit("sendMessage", messageObject);
+
+        this.message = "";
+      }
+    }
+  },
+  computed: {
+    messagesTreat() {
+      return this.messages.slice().reverse();
+    },
+    ...mapState(["username"])
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  $chat-height: 80%;
+$chat-height: 80%;
 
-  .chat {
-    overflow-y: scroll; 
-    -webkit-overflow-scrolling: touch;
-    height: #{$chat-height};
-    padding-top: 5rem;
+.chat {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: #{$chat-height};
+  padding-top: 5rem;
+}
+
+.sender-bar {
+  height: calc(100% - #{$chat-height});
+}
+
+.chat-box {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 1rem;
+}
+
+$negative-positions: 15rem;
+$negative-lg-positions: 10rem;
+$negative-md-positions: 3rem;
+
+.n-left {
+  left: $negative-positions;
+  @media screen and (max-width: 1250px) {
+    left: $negative-lg-positions;
   }
-
-  .sender-bar {
-    height: calc(100% - #{$chat-height});
+  @media screen and (max-width: 1100px) {
+    left: $negative-md-positions;
   }
-
-  .chat-box {
-    max-width: 400px;
-    width: 100%;
-    margin: 0 1rem;
+  @media screen and (max-width: 720px) {
+    left: 0;
+    right: 1rem;
   }
-
-  $negative-positions: 15rem;
-  $negative-lg-positions: 10rem;
-  $negative-md-positions: 3rem;
-
-  .n-left {
-    left: $negative-positions;
-    @media screen and (max-width: 1250px) {
-      left: $negative-lg-positions;
-    }
-    @media screen and (max-width: 1100px) {
-      left: $negative-md-positions;
-    }
-    @media screen and (max-width: 720px) {
-      left: 0;
-      right: 1rem;
-    }
-    @media screen and (max-width: 400px) {
-      right: 0;
-    }
+  @media screen and (max-width: 400px) {
+    right: 0;
   }
+}
 
-  .n-right {
-    right: $negative-positions;
-    @media screen and (max-width: 1250px) {
-      right: $negative-lg-positions;
-    }
-    @media screen and (max-width: 1100px) {
-      right: $negative-md-positions;
-    }
-    @media screen and (max-width: 720px) {
-      right: 0;
-      left: 1rem;
-    }
-    @media screen and (max-width: 400px) {
-      left: 0;
-    }
+.n-right {
+  right: $negative-positions;
+  @media screen and (max-width: 1250px) {
+    right: $negative-lg-positions;
   }
+  @media screen and (max-width: 1100px) {
+    right: $negative-md-positions;
+  }
+  @media screen and (max-width: 720px) {
+    right: 0;
+    left: 1rem;
+  }
+  @media screen and (max-width: 400px) {
+    left: 0;
+  }
+}
 </style>
