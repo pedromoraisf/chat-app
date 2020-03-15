@@ -2,8 +2,13 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueSocketIO from 'vue-socket.io';
 import { BootstrapVue } from 'bootstrap-vue';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
 import router from "./router";
 import store from "./store";
+
 
 import "./scss/style.scss";
 
