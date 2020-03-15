@@ -4,12 +4,13 @@ import VueSocketIO from 'vue-socket.io';
 import { BootstrapVue } from 'bootstrap-vue';
 import router from "./router";
 import store from "./store";
+import CONFIG from "./config";
 
 import "./scss/style.scss";
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'http://localhost:9000/',
+    connection: process.env.VUE_APP_HOST || CONFIG.VUE_APP_HOST,
     secure: true
 }));
 
