@@ -1,9 +1,6 @@
 <template>
   <b-container class="w-100 h-100" fluid>
-    <loader
-      :variantTheme="colorTheme[0]"
-      :loaderControl="users.length"
-    />
+    <loader :variantTheme="colorTheme[0]" :loaderControl="users.length" />
     <b-row class="h-100 p-0 p-md-4 p-lg-4 p-xl-4">
       <!-- users list -->
       <b-col class="h-100 shadow-lg p-0 bg-white" md="3">
@@ -29,7 +26,7 @@ import Chat from "@/components/chat/Chat";
 export default {
   components: {
     NavigationBar,
-    Chat, 
+    Chat,
     Loader
   },
   data: () => ({

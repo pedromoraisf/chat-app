@@ -75,6 +75,7 @@ export default {
         this.$store.dispatch("commitUsername", this.username);
     },
     changeUsername() {
+      this.$socket.emit("sendChangeUsername", this.username);
       localStorage.setItem("username", this.username);
       this.commitUsername(this.username);
     },
