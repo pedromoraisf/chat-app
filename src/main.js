@@ -9,7 +9,7 @@ import "./scss/style.scss";
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'https://chatdopedrao.herokuapp.com',
+    connection: process.env.VUE_APP_HOST || 'https://api-chatdopedrao.herokuapp.com',
     secure: true
 }));
 
