@@ -9,7 +9,7 @@
         :class="mes.username !== username ? 'bg-light n-right' : 'text-right bg-white n-left'"
       >
         <strong class="mr-2">{{ mes.username }}</strong>
-        <span v-html="mes.message"/>
+        <span v-html="mes.message" />
       </div>
     </b-container>
 
@@ -59,14 +59,18 @@ export default {
   },
   methods: {
     observerLink: message => {
-      let msgTest = message.split(' ');
+      let msgTest = message.split(" ");
       let msgTreat = [];
 
       for (const el of msgTest) {
-        msgTreat.push(/http:/g.test(el) || /https:/g.test(el) || /www/g.test(el) ? `<a href="${el}" target="_blank">${el}</a>` : el)
+        msgTreat.push(
+          /http:/g.test(el) || /https:/g.test(el) || /www/g.test(el)
+            ? `<a href="${el}" target="_blank">${el}</a>`
+            : el
+        );
       }
 
-      return msgTreat.join(' ')
+      return msgTreat.join(" ");
     },
     sendMessage() {
       if (this.username.length && this.message.length) {

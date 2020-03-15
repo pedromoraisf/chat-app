@@ -10,7 +10,7 @@ import "./scss/style.scss";
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: process.env.VUE_APP_HOST || CONFIG.VUE_APP_HOST,
+    connection: CONFIG.VUE_APP_HOST,
     secure: true
 }));
 
